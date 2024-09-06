@@ -1,0 +1,7 @@
+{
+  "name": "TravelInStyle",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
