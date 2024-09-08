@@ -24,10 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reestablecer-contrasena/reestablecer-contrasena.module').then( m => m.ReestablecerContrasenaPageModule)
   },
   {
-    path: 'perfil-usuario',
-    loadChildren: () => import('./pages/perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
-  },
-  {
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
@@ -46,6 +42,10 @@ const routes: Routes = [
   {
     path: 'listar-vehiculo',
     loadChildren: () => import('./pages/listar-vehiculo/listar-vehiculo.module').then( m => m.ListarVehiculoPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
 ];
 

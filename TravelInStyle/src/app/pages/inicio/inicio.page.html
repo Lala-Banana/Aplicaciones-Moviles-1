@@ -1,13 +1,51 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">inicio</ion-title>
+      <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+
+  <ion-content>
+    <ion-list>
+      <!-- Botón para Perfil -->
+      <ion-item (click)="goToPage('perfil')">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+
+      <!-- Botón para Vehiculo -->
+      <ion-item (click)="goToPage('listar-vehiculo')">
+        <ion-icon name="car" slot="start"></ion-icon>
+        <ion-label>Vehiculos</ion-label>
+      </ion-item>
+
+      <!-- Botón para Viaje -->
+      <ion-item (click)="goToPage('lista-viajes')">
+        <ion-icon name="briefcase" slot="start"></ion-icon>
+        <ion-label>Viaje</ion-label>
+      </ion-item>
+
+      <!-- Botón para Cerrar Sesión -->
+      <ion-item (click)="logout()">
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>Cerrar Sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Pagina inicio -->
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    ACA DEBE IR ALGO :P .
+  </ion-content>
+</div>
