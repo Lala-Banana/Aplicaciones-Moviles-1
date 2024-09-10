@@ -20,4 +20,9 @@ export class LoginPage implements OnInit {
     // Navega a la página de inicio
     this.router.navigate(['/inicio']);
   }
+
+  recuperarContrasena(){
+    this.router.navigate(['/reestablecer-contrasena']);
+  }
+
 }
