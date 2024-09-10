@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-menu-principal',
+  templateUrl: './menu-principal.component.html',
+  styleUrls: ['./menu-principal.component.scss'],
 })
-export class AppComponent {
-  constructor(private router: Router, private alertController: AlertController) {}
+export class MenuPrincipalComponent  implements OnInit {
+
+  constructor(private router: Router, private alertController: AlertController) { }
+
+  ngOnInit() {}
 
   goToPage(page: string) {
     this.router.navigate([`/${page}`]);
@@ -36,7 +39,5 @@ export class AppComponent {
         }
       ]
     });
-
-    await alert.present();
   }
 }

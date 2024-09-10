@@ -1,0 +1,35 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <!-- Botón para Perfil -->
+      <ion-item (click)="goToPage('perfil')">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+
+      <!-- Botón para Vehiculo -->
+      <ion-item (click)="goToPage('listar-vehiculo')">
+        <ion-icon name="car" slot="start"></ion-icon>
+        <ion-label>Vehiculos</ion-label>
+      </ion-item>
+
+      <!-- Botón para Viaje -->
+      <ion-item (click)="goToPage('lista-viajes')">
+        <ion-icon name="briefcase" slot="start"></ion-icon>
+        <ion-label>Viaje</ion-label>
+      </ion-item>
+
+      <!-- Botón para Cerrar Sesión -->
+      <ion-item (click)="logout()">
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>Cerrar Sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
