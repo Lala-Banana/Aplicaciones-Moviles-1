@@ -46,15 +46,18 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <ion-card>
+    <ion-card #card>
       <ion-card-header>
         <ion-card-title>¡Hola, {{usuario}}!</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>Bienvenido a nuestra aplicación. Estamos encantados de tenerte aquí.</p>
         <p>Explora nuestras características y disfruta de la experiencia.</p>
-        
       </ion-card-content>
     </ion-card>
+    <p>Te dejamos botones para que juegues con la carta de arriba :D</p>
+    <ion-button (click)="play()">Play</ion-button>
+    <ion-button (click)="pause()">Pause</ion-button>
+    <ion-button (click)="stop()">Stop</ion-button>
   </ion-content>
 </div>

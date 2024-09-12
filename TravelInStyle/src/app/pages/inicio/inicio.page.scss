@@ -1,0 +1,17 @@
+ion-card {
+    margin: 20px;
+    border: 1px solid #ccc;
+    transition: transform 1.5s;
+  }
+
+  ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  
+  }
+  
+  ion-button {
+    margin: 10px;
+    width: 100px; 
+  }
