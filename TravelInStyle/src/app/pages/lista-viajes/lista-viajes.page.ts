@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-viajes.page.scss'],
 })
 export class ListaViajesPage implements OnInit {
-
+  public loaded = false;
   viajes: Viaje[] = [];
   public nuevoViaje: string = '';
   constructor(private router: Router) { }
