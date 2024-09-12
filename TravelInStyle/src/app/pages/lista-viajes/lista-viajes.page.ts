@@ -10,7 +10,13 @@ export class ListaViajesPage implements OnInit {
   public loaded = false;
   viajes: Viaje[] = [];
   public nuevoViaje: string = '';
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    setTimeout(() => {
+      this.loaded = true;
+    }, 3000);
+
+
+  }
 
   ngOnInit() {
     this.viajes.push({
