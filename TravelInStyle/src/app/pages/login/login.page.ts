@@ -25,4 +25,9 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/reestablecer-contrasena']);
   }
 
+  registrarNuevoUsuario(){
+    this.router.navigateByUrl('/registro-usuario');
+
+  }
+
 }
