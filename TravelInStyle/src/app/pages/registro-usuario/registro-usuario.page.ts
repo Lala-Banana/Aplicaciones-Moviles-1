@@ -21,21 +21,18 @@ export class RegistroUsuarioPage implements OnInit {
   }
   
   cancelar() {
-    // Navegar a la página anterior o realizar otra acción
     this.router.navigate(['/login']);
   }
 
   async enviar() {
     if (this.areFieldsComplete()) {
       if (this.contrasena === this.confirmarContrasena) {
-        // Muestra la alerta de éxito
         const alert = await this.alertController.create({
           header: 'Usuario creado',
           buttons: ['OK']
         });
         await alert.present();
-        
-        // Navega a la página de login después de la alerta
+
         this.router.navigate(['/login']);
       } else {
         // Muestra la alerta si las contraseñas no coinciden
