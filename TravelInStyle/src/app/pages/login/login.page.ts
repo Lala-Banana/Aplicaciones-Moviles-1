@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  usuario: string = "";
   constructor(private router: Router) { } 
 
   ngOnInit() {
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
     //Poner aqui verificaciones 
     // ---------------------
     // Navega a la página de inicio
-    this.router.navigate(['/inicio']);
+    this.router.navigateByUrl("/inicio/" + this.usuario);
   }
 
   recuperarContrasena(){

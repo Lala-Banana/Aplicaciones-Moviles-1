@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
@@ -8,12 +8,13 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
-
-  constructor(private router: Router, private alertController: AlertController) { }
+  usuario: string="";
+  constructor(private activateRoute: ActivatedRoute,private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
+    this.usuario = this.activateRoute.snapshot.params["usuario"];
   }
-
+    
    // Método para navegar a una página
    goToPage(page: string) {
     this.router.navigate([`/${page}`]);

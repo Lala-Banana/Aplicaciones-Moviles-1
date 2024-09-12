@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reestablecer-contrasena/reestablecer-contrasena.module').then( m => m.ReestablecerContrasenaPageModule)
   },
   {
-    path: 'inicio',
+    path: 'inicio/:usuario',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
