@@ -9,9 +9,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">viaje</ion-title>
     </ion-toolbar>
   </ion-header>
+  <form (ngSubmit)="onSubmit()" #viajeForm="ngForm">
+    <label for="costo" >Costo:</label>
+    <ion-input label="" [(ngModel)]="nuevoViaje.costo" label-placement="floating" fill="outline" placeholder="Ej: $100.000"></ion-input>
+    <label for="fecha" >Elige una fecha:</label><br>
+    <input type="date" [(ngModel)]="nuevoViaje.fecha" id="fecha" name="fecha"><br>
+    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionOrigen">Ubicación Origen:</label>
+    <ion-input label="" label-placement="floating" fill="outline" placeholder="Donde estoy..."></ion-input>
+    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionDestino">Ubicación Destino:</label>
+    <ion-input label="" label-placement="floating" fill="outline" placeholder="A donde quiero llegar..."></ion-input>
+    <Label>Nombre Proyecto:</Label>
+    <ion-input label="" [(ngModel)]="nuevoViaje.nombreProducto" label-placement="floating" fill="outline" placeholder="ProyectoX"></ion-input>
+    <ion-button expand="full" type="submit">Agregar Viaje</ion-button>
+  </form>
 </ion-content>

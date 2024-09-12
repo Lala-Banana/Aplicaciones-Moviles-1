@@ -10,9 +10,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">listaViajes</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+
+
+  <ion-list>
+    <ion-item *ngFor="let viaje of viajes">
+      <ion-label>
+        <h2>{{ viaje.nombreProducto }}</h2>
+        <p><strong>Costo:</strong> {{ viaje.costo | currency }}</p>
+        <p><strong>Fecha:</strong> {{ viaje.fecha }}</p>
+        <p><strong>Origen:</strong> {{ viaje.ubicacionOrigen }}</p>
+        <p><strong>Destino:</strong> {{ viaje.ubicacionDestino }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab>
+    <ion-fab-button>
+      <ion-icon name="add" (click)="agregarViaje()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
