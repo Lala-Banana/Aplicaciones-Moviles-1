@@ -1,21 +1,34 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    
-    
-    
-    <ion-title>perfil</ion-title>
-    
-    <ion-button slot="end">
-      <ion-back-button defaultHref="/">Back</ion-back-button>
-    </ion-button>
-
+    <ion-title>Perfil de Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="false">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="profile-container">
+    <!-- Imagen de perfil -->
+    <ion-avatar class="profile-avatar">
+      <img src="https://telefe-static.akamaized.net/media/18211403/vin-diesel.png?width=888&height=500&mode=crop" alt="Avatar de usuario">
+    </ion-avatar>
+
+    <!-- Información del usuario -->
+    <div class="profile-info">
+      <h1>Dominic Toretto</h1>
+      <p>Correo: Dominic.Toretto&#64;gmail.com</p>
+      <p>Teléfono: +56912345678</p>
+    </div>
+
+    <!-- Estrellas de calificación -->
+    <div class="profile-rating">
+      <h1>Mi clasificación</h1>
+      <div class="rating-stars">
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star-outline" color="warning"></ion-icon>
+      </div>
+    </div>
+    
+  </div>
 </ion-content>
