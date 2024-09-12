@@ -13,4 +13,57 @@
       <ion-title size="large">agregarVehiculo</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <form (ngSubmit)="agregarVehiculo()" #vehiculoForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Marca</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.marca" name="marca" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Modelo</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.modelo" name="modelo" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Color</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.color" name="color" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Patente</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.patente" name="patente" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Año</ion-label>
+        <ion-input type="number" [(ngModel)]="vehiculo.anio" name="anio" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Combustible</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.combustible" name="combustible" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Capacidad Pasajeros</ion-label>
+        <ion-input type="number" [(ngModel)]="vehiculo.capacidadPasajeros" name="capacidadPasajeros" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">ID Usuario</ion-label>
+        <ion-input type="number" [(ngModel)]="vehiculo.idUsuario" name="idUsuario" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nombre del Proyecto</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.nombreProyecto" name="nombreProyecto" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-button expand="full" type="submit">Agregar Vehículo</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
 </ion-content>

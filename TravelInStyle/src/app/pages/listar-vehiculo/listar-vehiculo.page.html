@@ -15,4 +15,22 @@
       <ion-title size="large">listarVehiculo</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-list ></ion-list>
+    <ion-item *ngFor="let vehiculo of vehiculos">
+      <ion-label>
+        <h2>{{ vehiculo.nombreProyecto }}</h2>
+        <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
+        <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
+        <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
+        <p><strong>Capacidad Pasajeros:</strong> {{ vehiculo.capacidadPasajeros }}</p>
+        <p><strong>ID usuario:</strong> {{ vehiculo.idUsuario }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-fab>
+      <ion-fab-button>
+        <ion-icon name="add" (click)="agregarVehiculo()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
