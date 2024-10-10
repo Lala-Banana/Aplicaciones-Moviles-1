@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { HelperService } from 'src/app/services/helper.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,12 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   usuario: string = "";
   contrasena: string = '';
-  constructor(private router: Router, private alertController: AlertController) { } 
+  constructor(private router: Router,
+     private alertController: AlertController,
+     private firebase:FirebaseService, 
+     private helper:HelperService,
+     private storage:StorageService
+   ) { } 
 
   ngOnInit() {
   }
