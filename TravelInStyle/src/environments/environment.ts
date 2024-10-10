@@ -11,6 +11,7 @@ export const environment = {
     storageBucket: "bravo-villarroel.appspot.com",
     messagingSenderId: "915058203353",
     appId: "1:915058203353:web:1770cdce82567b160dbcc8"
-  }
+  },
+  apiUrl:"https://uber-nodejs-server-git-d61f89-guillermovillacuratorres-projects.vercel.app/api/"
 };
 

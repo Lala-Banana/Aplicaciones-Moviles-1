@@ -11,11 +11,12 @@ import { MenuPrincipalComponent } from './components/menu-principal/menu-princip
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule} from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, MenuPrincipalComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireAuthModule,AngularFireModule.initializeApp(environment.firebaseConfig)],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },provideHttpClient()],
   exports: [MenuPrincipalComponent],
   bootstrap: [AppComponent],
   
