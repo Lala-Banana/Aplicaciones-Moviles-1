@@ -16,7 +16,7 @@ export class StorageService {
 
   async getItem(llave:string){
     const obj = await Preferences.get({key:llave});
-    return obj;
+    return obj.value;
   }
 
   async agregarToken(dataJson:any){
@@ -28,8 +28,7 @@ export class StorageService {
     if (storageData == null){
       return [];
     }else{
-      return storageData;
-    }
+      return JSON.parse(storageData);
   }
-
+}
 }

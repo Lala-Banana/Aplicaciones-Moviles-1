@@ -21,5 +21,10 @@ export class FirebaseService {
     const request = await this.fire.sendPasswordResetEmail(email)
   }
 
+  async logout(){
+    await this.fire.signOut();
+  }
+
+
 
 }
