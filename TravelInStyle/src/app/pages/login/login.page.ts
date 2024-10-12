@@ -23,7 +23,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
   async login(){
   
     if (this.usuario == "") {
@@ -34,11 +33,6 @@ export class LoginPage implements OnInit {
       this.helper.showAlert("Ingrese la contraseña", "Error de validación");
       return;
     }
-    /* if (this.correo == "123" && this.contrasena == '123') {
-      this.router.navigateByUrl("/inicio");
-    }else{
-      alert("Credenciales incorrectas.");
-    } */
 
     const loader = await this.helper.showLoader("Cargando");
     try {
@@ -66,36 +60,17 @@ export class LoginPage implements OnInit {
     const jsonToken = 
     [
       {
-        "token":"123hbkjasnbdkjbsdkjs123",
-        "nombre":"PGY4121"
+        "token":"123BravoVillarroel123",
+        "nombre":"PGY4121BV"
       }
     ];
     
     this.storage.agregarToken(jsonToken);
 
-
-
     //Obtenemos la info que guardamos en storage
     let token = await this.storage.obtenerStorage();
     console.log(token[0].nombre);
-    
-
-    /* this.router.navigateByUrl("/inicio"); */
-    
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   recuperarContrasena(){
     this.router.navigate(['/reestablecer-contrasena']);
