@@ -14,7 +14,7 @@ export class FirebaseService {
   }
 
   async registro(email:string,contrasena:string){
-    const request = await this.fire.createUserWithEmailAndPassword(email,contrasena)
+    return await this.fire.createUserWithEmailAndPassword(email,contrasena);
   }
 
   async resetPassword(email:string){

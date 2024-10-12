@@ -25,11 +25,12 @@
       <ion-input type="tel" [(ngModel)]="telefono" name="telefono"></ion-input>
     </ion-item>
 
-    <!-- Dirección -->
+    <!-- Dirección 
     <ion-item>
       <ion-label position="floating">Dirección</ion-label>
       <ion-input type="text" [(ngModel)]="direccion" name="direccion"></ion-input>
     </ion-item>
+    -->
 
     <!-- Contraseña -->
     <ion-item>
@@ -37,17 +38,22 @@
       <ion-input type="password" [(ngModel)]="contrasena" name="contrasena" ></ion-input>
     </ion-item>
 
-    <!-- Confirmar Contraseña -->
+    <!-- Confirmar Contraseña 
     <ion-item>
       <ion-label position="floating">Confirmar Contraseña</ion-label>
       <ion-input type="password" [(ngModel)]="confirmarContrasena" name="confirmarContrasena"></ion-input>
     </ion-item>
+    -->
+    <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
 
+    <ion-button (click)="takePhoto()">
+      <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>Tomar foto
+    </ion-button>
     
   </form>
   <!-- Botones -->
   <ion-item>
-    <ion-button expand="full" color="tertiary" (click)="enviar()">Enviar</ion-button>
+    <ion-button expand="full" color="tertiary" (click)="registro()">Enviar</ion-button>
     <ion-button expand="full" color="secondary" (click)="cancelar()">Cancelar</ion-button>
   </ion-item>
 </ion-card>
