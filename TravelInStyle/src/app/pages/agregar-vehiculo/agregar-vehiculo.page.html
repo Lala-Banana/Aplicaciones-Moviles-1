@@ -16,6 +16,12 @@
 
   <form (ngSubmit)="agregarVehiculo()" #vehiculoForm="ngForm">
     <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Patente</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.patente" name="patente" required></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-label position="floating">Marca</ion-label>
         <ion-input type="text" [(ngModel)]="vehiculo.marca" name="marca" required></ion-input>
@@ -27,18 +33,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Color</ion-label>
-        <ion-input type="text" [(ngModel)]="vehiculo.color" name="color" required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Patente</ion-label>
-        <ion-input type="text" [(ngModel)]="vehiculo.patente" name="patente" required></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label position="floating">Año</ion-label>
         <ion-input type="number" [(ngModel)]="vehiculo.anio" name="anio" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Color</ion-label>
+        <ion-input type="text" [(ngModel)]="vehiculo.color" name="color" required></ion-input>
       </ion-item>
 
       <ion-item>
@@ -51,15 +52,11 @@
         <ion-input type="number" [(ngModel)]="vehiculo.capacidadPasajeros" name="capacidadPasajeros" required></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">ID Usuario</ion-label>
-        <ion-input type="number" [(ngModel)]="vehiculo.idUsuario" name="idUsuario" required></ion-input>
-      </ion-item>
+      <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
 
-      <ion-item>
-        <ion-label position="floating">Nombre del Proyecto</ion-label>
-        <ion-input type="text" [(ngModel)]="vehiculo.nombreProyecto" name="nombreProyecto" required></ion-input>
-      </ion-item>
+      <ion-button (click)="takePhoto()">
+        <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>Tomar foto
+      </ion-button>
 
       <ion-item>
         <ion-button expand="full" type="submit">Agregar Vehículo</ion-button>
