@@ -13,7 +13,8 @@ export class VehiculoService {
   async agregarVehiculo(datoVehiculo:dataBodyVehiculo, imgFileUser:any){
     try{
     const formData = new FormData();
-    formData.append('usuario_id',datoVehiculo.usuario_id);
+
+    formData.append('p_id_vehiculo',datoVehiculo.p_id_vehiculo.toString());
     formData.append('p_patente',datoVehiculo.p_patente);
     formData.append('p_marca',datoVehiculo.p_marca);
     formData.append('p_modelo',datoVehiculo.p_modelo);  
@@ -36,6 +37,7 @@ export class VehiculoService {
 }
 
 interface dataBodyVehiculo{
+  p_id_vehiculo:number;
   p_patente:string;
   p_marca:string;
   p_modelo:string;
@@ -43,6 +45,5 @@ interface dataBodyVehiculo{
   p_color:string;
   p_tipo_combustible:string;
   p_capacidad_pasajeros:number;
-  usuario_id:string;
   token?:string;
 }
