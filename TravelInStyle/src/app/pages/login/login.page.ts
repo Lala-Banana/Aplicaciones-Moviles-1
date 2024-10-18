@@ -36,8 +36,9 @@ export class LoginPage implements OnInit {
 
     const loader = await this.helper.showLoader("Cargando");
     try {
-
       await this.firebase.login(this.usuario,this.contrasena);
+      //Solicitud get user
+      
       loader.dismiss();
       this.router.navigateByUrl('/inicio/'+this.usuario);
     } catch (error:any) {
@@ -61,7 +62,8 @@ export class LoginPage implements OnInit {
     [
       {
         "token":"123BravoVillarroel123",
-        "nombre":"PGY4121BV"
+        "usuario_id":"PGY4121BV",
+        "usuario_correo":""
       }
     ];
     
