@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, AnimationController, IonCard } from '@ionic/angular';
 import { ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave } from '@ionic/angular';
 import { ViewChild, ElementRef } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-inicio',
@@ -19,12 +21,33 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
     private activateRoute: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private storage: StorageService,
+    private usuarioService: UsuarioService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Obtener el parámetro de usuario de la URL
-    this.usuario = this.activateRoute.snapshot.params["usuario"];
+    //this.usuario = this.activateRoute.snapshot.params["usuario"];
+    
+    // Ahora del token jeje
+    try {
+      // Obtener el token almacenado
+      const tokenData = await this.storage.obtenerStorage();
+      console.log("TokenData");
+      console.log(tokenData);
+
+      if (tokenData && tokenData[0].token && tokenData[0].usuario_correo) {
+        const usuarioInfo = await this.usuarioService.obtenerUsuario({
+          p_correo: tokenData[0].usuario_correo,
+          token: tokenData[0].token
+        });
+
+        this.usuario = usuarioInfo.data[0].nombre || 'Usuario';
+      }
+    } catch (error) {
+      console.error('Error al obtener la información del usuario:', error);
+    }
   }
 
   ionViewWillEnter(): void {
