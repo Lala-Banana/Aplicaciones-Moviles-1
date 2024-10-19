@@ -35,7 +35,7 @@ export class UsuarioService {
         p_correo: data.p_correo,
         token: data.token
       }
-      const response = await lastValueFrom(this.http.get(environment.apiUrl + 'user/obtener',{params}));
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'user/obtener',{params}));
       return response;
     } catch (error) {
       throw error;

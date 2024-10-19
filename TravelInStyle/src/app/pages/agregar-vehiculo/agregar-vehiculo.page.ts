@@ -22,6 +22,7 @@ export class AgregarVehiculoPage implements OnInit {
   p_tipo_combustible: string = '';
   p_capacidad_pasajeros: number= 4;
   imagen: any;
+  
 
   constructor(private router:Router , private alertController: AlertController,
     private firebase:FirebaseService, 

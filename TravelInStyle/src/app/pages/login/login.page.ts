@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { UserModel } from 'src/app/models/usuario';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +13,17 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  usuario: string = "usuario@gmail.com";
+  correo: string = "lala@banana1600.cl";
   contrasena: string = '123456';
+  token: string=" ";
+  usuario:UserModel[]=[];
+
   constructor(private router: Router,
      private alertController: AlertController,
      private firebase:FirebaseService, 
      private helper:HelperService,
-     private storage:StorageService
+     private storage:StorageService,
+     private usuarioService: UsuarioService
    ) { } 
 
   ngOnInit() {
@@ -25,7 +31,7 @@ export class LoginPage implements OnInit {
 
   async login(){
   
-    if (this.usuario == "") {
+    if (this.correo == "") {
       this.helper.showAlert("Ingrese el correo", "Error de validación");
       return;
     }
@@ -36,11 +42,30 @@ export class LoginPage implements OnInit {
 
     const loader = await this.helper.showLoader("Cargando");
     try {
-      await this.firebase.login(this.usuario,this.contrasena);
+
+      const reqFirebase = await this.firebase.login(this.correo,this.contrasena);
       //Solicitud get user
-      
+      const token = await reqFirebase.user?.getIdToken();
+
+      if (token) {
+        this.token = token;
+        const req = await this.usuarioService.obtenerUsuario(
+          {
+            p_correo:this.correo,
+            token:token
+          }
+        );
+        console.log("Respuesta de API:", req);
+        this.usuario = req.data;
+        console.log("DATA USUARIO", this.usuario[0].id_usuario);
+        
+      }
+
       loader.dismiss();
-      this.router.navigateByUrl('/inicio/'+this.usuario);
+      
+      
+      this.router.navigateByUrl('/inicio/'+this.correo);
+    
     } catch (error:any) {
       
       let msg = "Ocurrió un error al iniciar sesión.";
@@ -61,9 +86,9 @@ export class LoginPage implements OnInit {
     const jsonToken = 
     [
       {
-        "token":"123BravoVillarroel123",
-        "usuario_id":"PGY4121BV",
-        "usuario_correo":""
+        "token":this.token,
+        "usuario_id":this.usuario[0].id_usuario,
+        "usuario_correo": this.usuario[0].correo_electronico
       }
     ];
     
@@ -71,7 +96,7 @@ export class LoginPage implements OnInit {
 
     //Obtenemos la info que guardamos en storage
     let token = await this.storage.obtenerStorage();
-    console.log(token[0].nombre);
+    console.log(token[0].id_usuario);
   }
 
   recuperarContrasena(){
