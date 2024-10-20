@@ -49,21 +49,18 @@ export class AgregarVehiculoPage implements OnInit {
     nombreProyecto: ''
   };
   
-
   async agregarVehiculo(){
-    let token = await this.storage.obtenerStorage();
-    console.log(token[0].id_usuario)
-
     //const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
     //const token = await userFireBase.user?.getIdToken();
 
     try {
+      //const token = await this.storage.obtenerStorage();
+      //console.log("Token: ",token)
       // Obtener el token almacenado
       const tokenData = await this.storage.obtenerStorage();
-      console.log("TokenData");
-      console.log(tokenData);
+      console.log("TokenData", tokenData);
 
-      if (tokenData && tokenData[0].token && tokenData[0].usuario_correo) {
+      //if (tokenData && tokenData[0].token && tokenData[0].usuario_correo) {
         //Obtengo el usuario
         const usuarioInfo = await this.usuarioService.obtenerUsuario({
           p_correo: tokenData[0].usuario_correo,
@@ -71,7 +68,7 @@ export class AgregarVehiculoPage implements OnInit {
         });
         //Y paso los parametros
         const req = await this.VehiculoService.agregarVehiculo({
-          'p_id_usuario':usuarioInfo[0].id_usuario,
+          'p_id_usuario':tokenData[0].usuario_id,
           'p_patente':this.p_patente,
           'p_marca':this.p_marca,
           'p_modelo':this.p_modelo,  
@@ -79,14 +76,14 @@ export class AgregarVehiculoPage implements OnInit {
           'p_color':this.p_color,
           'p_tipo_combustible':this.p_tipo_combustible,
           'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
-          'token':token
+          'token':tokenData[0].token
         },this.imagen
       
       );
       await this.helper.showAlert("Vehiculo agregado Correctamente","");
       await this.router.navigateByUrl('inicio');
       
-      }
+      //}
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);
     }
