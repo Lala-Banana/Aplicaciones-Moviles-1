@@ -7,6 +7,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { StorageService } from 'src/app/services/storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 @Component({
   selector: 'app-agregar-vehiculo',
   templateUrl: './agregar-vehiculo.page.html',
@@ -29,7 +30,8 @@ export class AgregarVehiculoPage implements OnInit {
     private firebase:FirebaseService, 
     private VehiculoService:VehiculoService,
     private helper:HelperService,
-    private storage: StorageService
+    private storage: StorageService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit() {
@@ -50,26 +52,46 @@ export class AgregarVehiculoPage implements OnInit {
 
   async agregarVehiculo(){
     let token = await this.storage.obtenerStorage();
+    console.log(token[0].id_usuario)
+
     //const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
     //const token = await userFireBase.user?.getIdToken();
 
-    
+    try {
+      // Obtener el token almacenado
+      const tokenData = await this.storage.obtenerStorage();
+      console.log("TokenData");
+      console.log(tokenData);
 
-      const req = await this.VehiculoService.agregarVehiculo({
-        'p_id_usuario':token[0].id_usuario,
-        'p_patente':this.p_patente,
-        'p_marca':this.p_marca,
-        'p_modelo':this.p_modelo,  
-        'p_anio':this.p_anio,
-        'p_color':this.p_color,
-        'p_tipo_combustible':this.p_tipo_combustible,
-        'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
-        'token':token
-      },this.imagen
-    );
+      if (tokenData && tokenData[0].token && tokenData[0].usuario_correo) {
+        //Obtengo el usuario
+        const usuarioInfo = await this.usuarioService.obtenerUsuario({
+          p_correo: tokenData[0].usuario_correo,
+          token: tokenData[0].token
+        });
+        //Y paso los parametros
+        const req = await this.VehiculoService.agregarVehiculo({
+          'p_id_usuario':usuarioInfo[0].id_usuario,
+          'p_patente':this.p_patente,
+          'p_marca':this.p_marca,
+          'p_modelo':this.p_modelo,  
+          'p_anio':this.p_anio,
+          'p_color':this.p_color,
+          'p_tipo_combustible':this.p_tipo_combustible,
+          'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
+          'token':token
+        },this.imagen
+      
+      );
+      await this.helper.showAlert("Vehiculo agregado Correctamente","");
+      await this.router.navigateByUrl('inicio');
+      
+      }
+    } catch (error) {
+      console.error('Error al obtener la información del usuario:', error);
+    }
+
     
-    await this.helper.showAlert("Vehiculo agregado Correctamente","");
-    await this.router.navigateByUrl('inicio');
 }
 async takePhoto(){
   const image = await Camera.getPhoto({
