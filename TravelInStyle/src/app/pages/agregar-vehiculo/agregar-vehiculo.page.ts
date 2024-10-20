@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-agregar-vehiculo',
   templateUrl: './agregar-vehiculo.page.html',
@@ -22,12 +23,14 @@ export class AgregarVehiculoPage implements OnInit {
   p_tipo_combustible: string = '';
   p_capacidad_pasajeros: number= 4;
   imagen: any;
-  
+
 
   constructor(private router:Router , private alertController: AlertController,
     private firebase:FirebaseService, 
     private VehiculoService:VehiculoService,
-    private helper:HelperService,) { }
+    private helper:HelperService,
+    private storage: StorageService
+  ) { }
 
   ngOnInit() {
   }
@@ -46,21 +49,25 @@ export class AgregarVehiculoPage implements OnInit {
   
 
   async agregarVehiculo(){
-    const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
-    const token = await userFireBase.user?.getIdToken();
-    if (token){
+    let token = await this.storage.obtenerStorage();
+    //const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
+    //const token = await userFireBase.user?.getIdToken();
+
+    
+
       const req = await this.VehiculoService.agregarVehiculo({
-        'p_id_vehiculo':this.p_id_vehiculo,
+        'p_id_usuario':token[0].id_usuario,
         'p_patente':this.p_patente,
         'p_marca':this.p_marca,
         'p_modelo':this.p_modelo,  
         'p_anio':this.p_anio,
         'p_color':this.p_color,
         'p_tipo_combustible':this.p_tipo_combustible,
-        'p_capacidad_pasajeros':this.p_capacidad_pasajeros
+        'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
+        'token':token
       },this.imagen
     );
-    }
+    
     await this.helper.showAlert("Vehiculo agregado Correctamente","");
     await this.router.navigateByUrl('inicio');
 }

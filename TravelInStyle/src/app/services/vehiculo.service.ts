@@ -14,11 +14,11 @@ export class VehiculoService {
     try{
     const formData = new FormData();
 
-    formData.append('p_id_vehiculo',datoVehiculo.p_id_vehiculo.toString());
+    formData.append('p_id_usuario',datoVehiculo.p_id_usuario?.toString());
     formData.append('p_patente',datoVehiculo.p_patente);
     formData.append('p_marca',datoVehiculo.p_marca);
     formData.append('p_modelo',datoVehiculo.p_modelo);  
-    formData.append('p_anio',datoVehiculo.p_anio.toString());
+    formData.append('p_anio',datoVehiculo.p_anio?.toString());
     formData.append('p_color',datoVehiculo.p_color);
     formData.append('p_tipo_combustible',datoVehiculo.p_tipo_combustible);
     formData.append('p_capacidad_pasajeros',datoVehiculo.p_capacidad_pasajeros.toString());  
@@ -26,7 +26,7 @@ export class VehiculoService {
     if(datoVehiculo.token){
       formData.append('token',datoVehiculo.token);
     }
-    formData.append('image_usuario', imgFileUser.file, imgFileUser.name);
+    formData.append('image', imgFileUser.file, imgFileUser.name);
 
     const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'vehiculo/agregar',formData));
     return response;
@@ -37,7 +37,7 @@ export class VehiculoService {
 }
 
 interface dataBodyVehiculo{
-  p_id_vehiculo:number;
+  p_id_usuario:number;
   p_patente:string;
   p_marca:string;
   p_modelo:string;
