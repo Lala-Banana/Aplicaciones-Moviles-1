@@ -21,7 +21,7 @@ export class VehiculoService {
     formData.append('p_anio',datoVehiculo.p_anio?.toString());
     formData.append('p_color',datoVehiculo.p_color);
     formData.append('p_tipo_combustible',datoVehiculo.p_tipo_combustible);
-    formData.append('p_capacidad_pasajeros',datoVehiculo.p_capacidad_pasajeros.toString());  
+    //formData.append('p_capacidad_pasajeros',datoVehiculo.p_capacidad_pasajeros.toString());  
 
     if(datoVehiculo.token){
       formData.append('token',datoVehiculo.token);
@@ -44,6 +44,6 @@ interface dataBodyVehiculo{
   p_anio:number;
   p_color:string;
   p_tipo_combustible:string;
-  p_capacidad_pasajeros:number;
+  //p_capacidad_pasajeros:number;
   token?:string;
 }

@@ -15,12 +15,10 @@ export class ListarVehiculoPage implements OnInit {
       marca: 'Toyota',
       modelo: 'Corolla',
       patente: 'ABC123',
-      capacidadPasajeros: 5,
-      idUsuario: 123,
+      //idUsuario: 123,
       color: 'Rojo',
       anio: 2000,
       combustible: 'Gasolina',
-      nombreProyecto: 'Tour Costero'
     });
     }
     agregarVehiculo(){

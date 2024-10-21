@@ -5,7 +5,4 @@ export interface Vehiculo {
     patente:String;
     anio: number;
     combustible: String;
-    capacidadPasajeros: number;
-    idUsuario: number;
-    nombreProyecto: String;
 }

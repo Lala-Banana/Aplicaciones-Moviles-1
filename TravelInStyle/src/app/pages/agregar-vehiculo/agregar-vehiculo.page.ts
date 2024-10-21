@@ -22,7 +22,6 @@ export class AgregarVehiculoPage implements OnInit {
   p_anio: number=2010;
   p_color: string = '';
   p_tipo_combustible: string = '';
-  p_capacidad_pasajeros: number= 4;
   imagen: any;
 
 
@@ -44,9 +43,8 @@ export class AgregarVehiculoPage implements OnInit {
     patente: '',
     anio: 0,
     combustible: '',
-    capacidadPasajeros: 0,
-    idUsuario: 0,
-    nombreProyecto: ''
+    //capacidadPasajeros: 0,
+    //idUsuario: 0,
   };
   
   async agregarVehiculo(){
@@ -69,15 +67,18 @@ export class AgregarVehiculoPage implements OnInit {
         //Y paso los parametros
         const req = await this.VehiculoService.agregarVehiculo({
           'p_id_usuario':tokenData[0].usuario_id,
-          'p_patente':this.p_patente,
-          'p_marca':this.p_marca,
-          'p_modelo':this.p_modelo,  
-          'p_anio':this.p_anio,
-          'p_color':this.p_color,
-          'p_tipo_combustible':this.p_tipo_combustible,
-          'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
+          'p_patente':this.vehiculo.patente.toString(),
+          'p_marca':this.vehiculo.marca.toString(),
+          'p_modelo':this.vehiculo.modelo.toString(),  
+          'p_anio':this.vehiculo.anio,
+          'p_color':this.vehiculo.color.toString(),
+          'p_tipo_combustible':this.vehiculo.combustible.toString(),
+          
+          
+          //'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
           'token':tokenData[0].token
         },this.imagen
+        
       
       );
       await this.helper.showAlert("Vehiculo agregado Correctamente","");
