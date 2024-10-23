@@ -13,6 +13,8 @@ import { UserModel } from 'src/app/models/usuario';
 export class ListarVehiculoPage implements OnInit {
   vehiculos: Vehiculo[] = [];
   usuario:UserModel[]=[];
+  usuarioId: number=0;
+
   constructor(private router: Router,
     private vehiculoService: VehiculoService,
     private storage: StorageService,
@@ -21,17 +23,7 @@ export class ListarVehiculoPage implements OnInit {
 
   ngOnInit() {
     this.cargarUsuario();
-    this.cargarVehiculos();
-    /*
-    this.vehiculos.push({
-      marca: 'Toyota',
-      modelo: 'Corolla',
-      patente: 'ABC123',
-      //idUsuario: 123,
-      color: 'Rojo',
-      anio: 2000,
-      combustible: 'Gasolina',
-    });*/
+
     }
     agregarVehiculo(){
       this.router.navigate(['/agregar-vehiculo']);
@@ -40,7 +32,8 @@ export class ListarVehiculoPage implements OnInit {
     async cargarVehiculos(){
       let dataStorage = await this.storage.obtenerStorage();
       const req = await this.vehiculoService.obtenerVehiculo(dataStorage[0].token);
-      this.vehiculos = req.data;
+      // Filtrar vehículos por el ID del usuario actual
+    this.vehiculos = req.data.filter((vehiculo: Vehiculo) => vehiculo.id_usuario === this.usuarioId);
     }
 
     seleccionarVehiculo(parId:number){
@@ -59,6 +52,12 @@ export class ListarVehiculoPage implements OnInit {
       );
       this.usuario = req.data;
       console.log("DATA INICIO USUARIO ", this.usuario);
+      if (this.usuario.length > 0) {
+        this.usuarioId = this.usuario[0].id_usuario; // Asignar el ID del usuario actual
+        console.log("ID del usuario actual: ", this.usuarioId);
+  
+        // Cargar los vehículos después de obtener el usuario
+        this.cargarVehiculos();
     }
-
+  }
 }

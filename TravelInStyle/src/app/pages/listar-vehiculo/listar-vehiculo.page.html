@@ -5,22 +5,12 @@
       <ion-back-button defaultHref="/">Back</ion-back-button>
     </ion-button>
   </ion-toolbar>
-
-  
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">listarVehiculo</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
-  <ion-list ></ion-list>
   <ion-card *ngFor="let i of vehiculos" >
     <div class="box">
-      <!--<ion-img [src]="i.imagen_vehiculo"></ion-img>-->
+      <ion-img [src]="i.imagen_vehiculo"></ion-img>
     </div>
 
       <div class="vertical">

@@ -5,4 +5,6 @@ export interface Vehiculo {
     patente:String;
     anio: number;
     combustible: String;
+    imagen_vehiculo: String;
+    id_usuario:number;
 }
