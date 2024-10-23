@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from './vehiculo';
 import { Router } from '@angular/router';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { UserModel } from 'src/app/models/usuario';
 @Component({
   selector: 'app-listar-vehiculo',
   templateUrl: './listar-vehiculo.page.html',
@@ -8,9 +12,17 @@ import { Router } from '@angular/router';
 })
 export class ListarVehiculoPage implements OnInit {
   vehiculos: Vehiculo[] = [];
-  constructor(private router: Router) { }
+  usuario:UserModel[]=[];
+  constructor(private router: Router,
+    private vehiculoService: VehiculoService,
+    private storage: StorageService,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit() {
+    this.cargarUsuario();
+    this.cargarVehiculos();
+    /*
     this.vehiculos.push({
       marca: 'Toyota',
       modelo: 'Corolla',
@@ -19,13 +31,34 @@ export class ListarVehiculoPage implements OnInit {
       color: 'Rojo',
       anio: 2000,
       combustible: 'Gasolina',
-    });
+    });*/
     }
     agregarVehiculo(){
       this.router.navigate(['/agregar-vehiculo']);
     }
   
+    async cargarVehiculos(){
+      let dataStorage = await this.storage.obtenerStorage();
+      const req = await this.vehiculoService.obtenerVehiculo(dataStorage[0].token);
+      this.vehiculos = req.data;
+    }
 
+    seleccionarVehiculo(parId:number){
+      console.log("Vehiculo seleccionado ", parId);
+      
+    }
 
+    async cargarUsuario(){
+      let dataStorage = await this.storage.obtenerStorage();
+      
+      const req = await this.usuarioService.obtenerUsuario(
+        {
+          p_correo:dataStorage[0].usuario_correo,
+          token:dataStorage[0].token
+        }
+      );
+      this.usuario = req.data;
+      console.log("DATA INICIO USUARIO ", this.usuario);
+    }
 
 }
