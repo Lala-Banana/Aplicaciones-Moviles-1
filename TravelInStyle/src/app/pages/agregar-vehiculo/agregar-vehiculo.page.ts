@@ -50,9 +50,7 @@ export class AgregarVehiculoPage implements OnInit {
   };
   
   async agregarVehiculo(){
-    //const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
-    //const token = await userFireBase.user?.getIdToken();
-
+ 
     try {
       //const token = await this.storage.obtenerStorage();
       //console.log("Token: ",token)
