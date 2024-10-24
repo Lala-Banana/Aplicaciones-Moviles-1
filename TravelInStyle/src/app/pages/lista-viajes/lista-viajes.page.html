@@ -23,11 +23,10 @@
   <ion-list *ngIf="loaded">
     <ion-item *ngFor="let viaje of viajes">
       <ion-label>
-        <h2>{{ viaje.nombreProducto }}</h2>
         <p><strong>Costo:</strong> {{ viaje.costo | currency }}</p>
         <p><strong>Fecha:</strong> {{ viaje.fecha }}</p>
-        <p><strong>Origen:</strong> {{ viaje.ubicacionOrigen }}</p>
-        <p><strong>Destino:</strong> {{ viaje.ubicacionDestino }}</p>
+        <p><strong>Origen:</strong> {{ viaje.ubicacion_origen }}</p>
+        <p><strong>Destino:</strong> {{ viaje.ubicacion_destino }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

@@ -19,13 +19,7 @@ export class ListaViajesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.viajes.push({
-      costo: 250000,
-      fecha: '2024-09-15',
-      ubicacionOrigen: 'Santiago',
-      ubicacionDestino: 'Valparaíso',
-      nombreProducto: 'Tour Costero'
-    });
+    
 
   }
 

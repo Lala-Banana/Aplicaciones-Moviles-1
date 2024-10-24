@@ -9,30 +9,35 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">viaje</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <form (ngSubmit)="agregarViaje()" #viajeForm="ngForm">
-    <label for="costo" >Costo:</label>
-    <ion-input label="" [(ngModel)]="nuevoViaje.costo" label-placement="floating" fill="outline" placeholder="Ej: $100.000"></ion-input>
-    <label for="fecha" >Elige una fecha:</label><br>
-    <input type="date" [(ngModel)]="nuevoViaje.fecha" id="fecha" name="fecha"><br>
-    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionOrigen">Ubicación Origen:</label>
-    <ion-input label="" label-placement="floating" fill="outline" placeholder="Donde estoy..."></ion-input>
-    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionDestino">Ubicación Destino:</label>
-    <ion-input label="" label-placement="floating" fill="outline" placeholder="A donde quiero llegar..."></ion-input>
-    <ion-item>
-      <ion-label>Seleccionar Vehículo</ion-label>
-      <ion-select [(ngModel)]="vehiculoSeleccionado" [multiple]="false">
-        <ion-select-option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.id_usuario">
-          {{ vehiculo.marca }} {{ vehiculo.modelo }} ({{ vehiculo.patente }})
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-label position="floating">Costo</ion-label>
+    <ion-input type="number" [(ngModel)]="nuevoViaje.costo" placeholder="Introduce el costo"></ion-input>
+  </ion-item>
 
-    <ion-button expand="full" type="submit">Agregar Viaje</ion-button>
-  </form>
+  <ion-item>
+    <ion-label position="floating">Fecha</ion-label>
+    <ion-input type="date" [(ngModel)]="nuevoViaje.fecha" placeholder="Selecciona la fecha"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Ubicación Origen</ion-label>
+    <ion-input [(ngModel)]="nuevoViaje.ubicacion_origen" placeholder="Introduce la ubicación de origen"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Ubicación Destino</ion-label>
+    <ion-input [(ngModel)]="nuevoViaje.ubicacion_destino" placeholder="Introduce la ubicación de destino"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Id Vehiculo</ion-label>
+    <ion-input [(ngModel)]="nuevoViaje.id_vehiculo" placeholder="Introduce el id del vehiculo (21)"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
+
+  
+
+
+
 </ion-content>
