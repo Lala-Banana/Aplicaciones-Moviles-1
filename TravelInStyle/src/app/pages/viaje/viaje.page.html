@@ -15,17 +15,32 @@
       <ion-title size="large">viaje</ion-title>
     </ion-toolbar>
   </ion-header>
-  <form (ngSubmit)="onSubmit()" #viajeForm="ngForm">
-    <label for="costo" >Costo:</label>
-    <ion-input label="" [(ngModel)]="nuevoViaje.costo" label-placement="floating" fill="outline" placeholder="Ej: $100.000"></ion-input>
-    <label for="fecha" >Elige una fecha:</label><br>
-    <input type="date" [(ngModel)]="nuevoViaje.fecha" id="fecha" name="fecha"><br>
-    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionOrigen">Ubicación Origen:</label>
-    <ion-input label="" label-placement="floating" fill="outline" placeholder="Donde estoy..."></ion-input>
-    <label for="ubO" [(ngModel)]="nuevoViaje.ubicacionDestino">Ubicación Destino:</label>
-    <ion-input label="" label-placement="floating" fill="outline" placeholder="A donde quiero llegar..."></ion-input>
-    <Label>Nombre Proyecto:</Label>
-    <ion-input label="" [(ngModel)]="nuevoViaje.nombreProducto" label-placement="floating" fill="outline" placeholder="ProyectoX"></ion-input>
-    <ion-button expand="full" type="submit">Agregar Viaje</ion-button>
+  <form (ngSubmit)="agregarViaje()" #viajeForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Ubicación Origen</ion-label>
+        <ion-input type="text" [(ngModel)]="p_ubicacion_origen" name="ubicacion_origen" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Ubicación Destino</ion-label>
+        <ion-input type="text" [(ngModel)]="p_ubicacion_destino" name="ubicacion_destino" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Costo</ion-label>
+        <ion-input type="number" [(ngModel)]="p_costo" name="costo" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">ID Vehículo</ion-label>
+        <ion-input type="number" [(ngModel)]="p_id_vehiculo" name="id_vehiculo" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-button expand="full" type="submit">Agregar Viaje</ion-button>
+      </ion-item>
+    </ion-list>
   </form>
+  
 </ion-content>

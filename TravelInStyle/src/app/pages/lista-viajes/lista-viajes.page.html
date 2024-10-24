@@ -26,12 +26,24 @@
         <h2>{{ viaje.nombreProducto }}</h2>
         <p><strong>Costo:</strong> {{ viaje.costo | currency }}</p>
         <p><strong>Fecha:</strong> {{ viaje.fecha }}</p>
-        <p><strong>Origen:</strong> {{ viaje.ubicacionOrigen }}</p>
-        <p><strong>Destino:</strong> {{ viaje.ubicacionDestino }}</p>
+          <p><strong>Ubicación Origen:</strong> {{ viaje.ubicacion_origen}}</p>
+          <p><strong>Ubicación Destino:</strong> {{ viaje.ubicacion_destino}}</p>
+          
+          
+      
       </ion-label>
     </ion-item>
   </ion-list>
-
+  <ion-content>
+    <ion-card *ngFor="let i of viajes">
+      
+      <ion-card-content>
+        <h3>Origen: {{ i.ubicacion_origen }}</h3> <!-- Cambia por la propiedad correcta -->
+        <h3>Destino: {{ i.ubicacion_destino }}</h3> <!-- Cambia por la propiedad correcta -->
+        
+      </ion-card-content>
+    </ion-card>
+</ion-content>
 
 
   <ion-list *ngIf="!loaded">

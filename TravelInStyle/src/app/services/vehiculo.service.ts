@@ -34,6 +34,23 @@ export class VehiculoService {
     throw error;
     }
   }
+
+  async obtenerVehiculo(parToken:string){
+    try {
+      const params = {
+        token:parToken
+      };
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'vehiculo/obtener',{params}));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+
+
+  }
+
+
+
 }
 
 interface dataBodyVehiculo{

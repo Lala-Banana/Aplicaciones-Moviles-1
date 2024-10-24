@@ -1,7 +1,7 @@
 export interface Viaje {
   costo: number;
   fecha: string;
-  ubicacionOrigen: string;
-  ubicacionDestino: string;
+  ubicacion_origen: string;
+  ubicacion_destino: string;
   nombreProducto: string;
 }
