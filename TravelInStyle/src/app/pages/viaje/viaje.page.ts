@@ -50,7 +50,7 @@ export class ViajePage implements OnInit {
         if(token){
           const req = await this.viajeService.agregarViaje({
             p_id_usuario: tokenData[0].usuario_id,
-            p_id_vehiculo: this.idVehiculo, 
+            p_id_vehiculo: 4, 
             p_costo: this.nuevoViaje.costo,
             p_ubicacion_origen: this.nuevoViaje.ubicacion_origen,
             p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
