@@ -63,7 +63,8 @@ export class ViajePage implements OnInit {
             p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
             token: token,
           });
-          await this.helper.showAlert("Viaje agregado Correctamente","");
+          //await this.helper.showAlert("Viaje agregado Correctamente","");
+          await this.helper.showToast('Viaje Agregado! :)')
           await this.router.navigateByUrl('/inicio');}
           
         }

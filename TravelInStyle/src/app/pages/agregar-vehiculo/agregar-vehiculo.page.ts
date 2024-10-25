@@ -61,6 +61,15 @@ export class AgregarVehiculoPage implements OnInit {
           p_correo: tokenData[0].usuario_correo,
           token: tokenData[0].token
         });
+
+        // Verificar si ya existe un vehículo
+        const vehiculoExistente = await this.VehiculoService.obtenerVehiculo(tokenData[0].token);
+        if (vehiculoExistente && vehiculoExistente.data) {
+          await this.helper.showAlert("Ya posee un Vehículo", "");
+          await this.router.navigateByUrl('inicio');
+        }
+
+
         //Y paso los parametros
         const req = await this.VehiculoService.agregarVehiculo({
           'p_id_usuario':tokenData[0].usuario_id,
@@ -78,6 +87,7 @@ export class AgregarVehiculoPage implements OnInit {
       await this.helper.showAlert("Vehiculo agregado Correctamente","");
       await this.router.navigateByUrl('/inicio');
       
+        
       //}
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);
