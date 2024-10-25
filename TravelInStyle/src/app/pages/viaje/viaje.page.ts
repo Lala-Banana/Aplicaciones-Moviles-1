@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helper.service';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
 import { Vehiculo } from '../listar-vehiculo/vehiculo';
+import { UserModel } from 'src/app/models/usuario';
+import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
   selector: 'app-viaje',
   templateUrl: './viaje.page.html',
@@ -21,7 +23,8 @@ export class ViajePage implements OnInit {
     private viajeService: ViajeService,
     private router: Router,
     private helper: HelperService,
-    private vehiculoService: VehiculoService
+    private vehiculoService: VehiculoService,
+    private firebase: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -39,25 +42,30 @@ export class ViajePage implements OnInit {
   vehiculoSeleccionado: number = 0; // ID del vehículo seleccionado
   idVehiculo: number =0;
 
+  token: string=" ";
+  usuario:UserModel[]=[];
+
 
   async agregarViaje(){
-    
       // Obtener el token almacenado
       let tokenData = await this.storage.obtenerStorage();
       console.log("TokenDataaa", tokenData);
       const token = tokenData[0].token
       try {
         if(token){
-          const req = await this.viajeService.agregarViaje({
-            p_id_usuario: tokenData[0].usuario_id,
-            p_id_vehiculo: 4, 
+          if(tokenData[0].id_vehiculo == null){
+            await this.helper.showAlert("Debe agregar un vehiculo","");
+          }else{const req = await this.viajeService.agregarViaje({
+            p_id_usuario: tokenData[0].id_usuario,
+            p_id_vehiculo: tokenData[0].id_vehiculo, 
             p_costo: this.nuevoViaje.costo,
             p_ubicacion_origen: this.nuevoViaje.ubicacion_origen,
             p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
             token: token,
           });
           await this.helper.showAlert("Viaje agregado Correctamente","");
-          await this.router.navigateByUrl('/inicio');
+          await this.router.navigateByUrl('/inicio');}
+          
         }
     } catch (error) {
       console.error('Error al obtener la informacion',error)
