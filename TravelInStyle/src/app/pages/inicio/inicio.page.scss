@@ -28,3 +28,18 @@
 ion-card {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añade sombra para un efecto de profundidad */
 }
+
+.connection-bar {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.bar-success {
+  background-color: green; /* Color verde para conectado */
+}
+
+.bar-danger {
+  background-color: red; /* Color rojo para sin conexión */
+}

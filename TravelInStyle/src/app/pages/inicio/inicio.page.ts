@@ -5,19 +5,23 @@ import { ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave } from '@ionic
 import { ViewChild, ElementRef } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import type { Animation } from '@ionic/angular';
-import type { QueryList } from '@angular/core';
+import { Network } from '@capacitor/network';
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
+export class InicioPage implements OnInit, 
+                                  ViewWillEnter,
+                                   ViewDidEnter, 
+                                   ViewWillLeave,
+                                    ViewDidLeave {
   
   usuario: string = '';
   private animation: any;
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLIonCardElement> | undefined;
-
+  isConnected: boolean = true;
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -50,6 +54,19 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);
     }
+
+    //RED
+    const status = await Network.getStatus();
+    this.isConnected = status.connected;
+    console.log('Estado de la red al iniciar:', status);
+    
+    // Escuchar cambios en el estado de la red
+    Network.addListener('networkStatusChange', status => {
+      this.isConnected = status.connected; // Actualizar el estado
+      console.log('Estado de la red cambiado:', status);
+    });
+
+
   }
 
 

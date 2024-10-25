@@ -44,7 +44,10 @@
       <ion-title>Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <div [ngClass]="{'bar-success': isConnected, 'bar-danger': !isConnected}" class="connection-bar">
+    <span *ngIf="isConnected">Conectado</span>
+    <span *ngIf="!isConnected">Sin conexión</span>
+  </div>
   
   <ion-card-header>
     <ion-card-title>¡Hola, {{usuario}}!</ion-card-title>
