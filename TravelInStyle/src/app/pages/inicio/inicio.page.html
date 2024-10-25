@@ -16,7 +16,7 @@
       <!-- Botón para Vehiculo -->
       <ion-item (click)="goToPage('listar-vehiculo')">
         <ion-icon name="car" slot="start"></ion-icon>
-        <ion-label>Vehiculos</ion-label>
+        <ion-label>Vehículos</ion-label>
       </ion-item>
 
       <!-- Botón para Viaje -->
@@ -34,7 +34,7 @@
   </ion-content>
 </ion-menu>
 
-<!-- Pagina inicio -->
+<!-- Página inicio -->
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -46,18 +46,38 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <ion-card #card>
-      <ion-card-header>
-        <ion-card-title>¡Hola, {{usuario}}!</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Bienvenido a nuestra aplicación. Estamos encantados de tenerte aquí.</p>
-        <p>Explora nuestras características y disfruta de la experiencia.</p>
-      </ion-card-content>
-    </ion-card>
-    <p>Te dejamos botones para que juegues con la carta de arriba :D</p>
-    <ion-button (click)="play()">Play</ion-button>
-    <ion-button (click)="pause()">Pause</ion-button>
-    <ion-button (click)="stop()">Stop</ion-button>
+    <div #contenido>
+      <ion-card>
+        <ion-card-content>
+          <div id="opciones">
+            <div class="op1" (click)="goToPage('lista-viajes')">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+              <ion-card-header>
+                <ion-card-title>Card Title</ion-card-title>
+                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                Here's a small text description for the card content. Nothing more, nothing less.
+              </ion-card-content>
+            </div>
+
+            <div class="op1">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+              <ion-card-header>
+                <ion-card-title>Card Title</ion-card-title>
+                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                Here's a small text description for the card content. Nothing more, nothing less.
+              </ion-card-content>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button (click)="play()">Play</ion-button>
+      <ion-button (click)="pause()">Pause</ion-button>
+      <ion-button (click)="stop()">Stop</ion-button>
+    </div>
   </ion-content>
 </div>

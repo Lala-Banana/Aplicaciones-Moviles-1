@@ -5,14 +5,15 @@ import { ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave } from '@ionic
 import { ViewChild, ElementRef } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import type { Animation } from '@ionic/angular';
+import type { QueryList } from '@angular/core';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
-
+  
   usuario: string = '';
   private animation: any;
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLIonCardElement> | undefined;
@@ -27,6 +28,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
   ) { }
 
   async ngOnInit() {
+    
     // Obtener el parámetro de usuario de la URL
     //this.usuario = this.activateRoute.snapshot.params["usuario"];
     
@@ -50,6 +52,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
     }
   }
 
+
   ionViewWillEnter(): void {
     console.log("ionViewWillEnter - La página está a punto de entrar en vista.");
   }
@@ -62,10 +65,15 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
         .create()
         .addElement(this.card.nativeElement)
         .duration(1500)
-        .iterations(Infinity)
-        .fromTo('transform', 'translateX(0px)', 'translateX(100px)')
+        .iterations(1)
+        .fromTo('transform', 'translateX(-100px)', 'translateX(0px)')
         .fromTo('opacity', '1', '0.5');
+        this.animation.onFinish(() => {
+          this.stop(); // Detener la animación cuando termine
+        });
     }
+    this.play();
+    
   }
 
   ionViewWillLeave(): void {
@@ -127,4 +135,21 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
       console.log('Animación detenida');
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }

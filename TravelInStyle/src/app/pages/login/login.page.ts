@@ -14,7 +14,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class LoginPage implements OnInit {
   correo: string = "lala@banana1600.cl";
-  contrasena: string = '123456';
+  contrasena: string = 'mhdlbele2001';
   token: string=" ";
   usuario:UserModel[]=[];
 
