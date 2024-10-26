@@ -37,6 +37,7 @@ export class ListaViajesPage implements OnInit {
       const dataStorage = await this.storage.obtenerStorage();
       const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
       console.log('storage y obtenerViaje Funcionan',req);
+      console.log('idusuario',this.usuarioId);
       this.viajes = req.data.filter((viaje: Viaje) => viaje.id_usuario === this.usuarioId);
       console.log(this.viajes);
       if (!this.viajes || this.viajes.length == 0){

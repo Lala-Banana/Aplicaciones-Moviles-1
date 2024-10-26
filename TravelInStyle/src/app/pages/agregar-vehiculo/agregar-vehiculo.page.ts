@@ -35,7 +35,7 @@ export class AgregarVehiculoPage implements OnInit {
 
   ngOnInit() {
   }
-
+  /* vehiculo: Vehiculo[] = []; */
   vehiculo: Vehiculo = {
     marca: '',
     modelo: '',
@@ -45,25 +45,43 @@ export class AgregarVehiculoPage implements OnInit {
     combustible: '',
     //capacidadPasajeros: 0,
     //idUsuario: 0,
+    imagen_vehiculo: '',
+    id_usuario :0
   };
   
   async agregarVehiculo(){
-    //const userFireBase = await this.firebase.registro(this.p_patente,this.p_modelo);
-    //const token = await userFireBase.user?.getIdToken();
-
+ 
     try {
-      //const token = await this.storage.obtenerStorage();
-      //console.log("Token: ",token)
       // Obtener el token almacenado
       const tokenData = await this.storage.obtenerStorage();
       console.log("TokenData", tokenData);
 
-      //if (tokenData && tokenData[0].token && tokenData[0].usuario_correo) {
         //Obtengo el usuario
         const usuarioInfo = await this.usuarioService.obtenerUsuario({
           p_correo: tokenData[0].usuario_correo,
           token: tokenData[0].token
         });
+
+        // Verificar si ya existe un vehículo
+        const vehiculoExistente = await this.VehiculoService.obtenerVehiculo(tokenData[0].token);
+        console.log('vehiculoExistente',vehiculoExistente);
+        console.log('vehiculoExistente.data',vehiculoExistente.data);
+        const condicion = vehiculoExistente.data.filter((vehiculo: Vehiculo)=> vehiculo.id_usuario === usuarioInfo.data[0].id_usuario);
+        console.log('condicion',condicion);
+        console.log('usuarioInfo.data',usuarioInfo.data);
+        console.log('usuarioInfo.data.usuario_id',usuarioInfo.data[0].id_usuario);
+        if (condicion) {
+          console.log('La condición es true');
+      } else {
+          console.log('La condición es false');
+      }
+        console.log('cantidad de vehiculos' , condicion.length);
+        if (condicion.length >= 1) {
+          await this.helper.showAlert("Ya posee un Vehículo", "");
+          await this.router.navigateByUrl('inicio');
+        }
+
+
         //Y paso los parametros
         const req = await this.VehiculoService.agregarVehiculo({
           'p_id_usuario':tokenData[0].usuario_id,
@@ -73,17 +91,15 @@ export class AgregarVehiculoPage implements OnInit {
           'p_anio':this.vehiculo.anio,
           'p_color':this.vehiculo.color.toString(),
           'p_tipo_combustible':this.vehiculo.combustible.toString(),
-          
-          
-          //'p_capacidad_pasajeros':this.p_capacidad_pasajeros,
           'token':tokenData[0].token
         },this.imagen
         
       
       );
       await this.helper.showAlert("Vehiculo agregado Correctamente","");
-      await this.router.navigateByUrl('inicio');
+      await this.router.navigateByUrl('/inicio');
       
+        
       //}
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);

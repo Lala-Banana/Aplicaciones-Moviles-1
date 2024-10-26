@@ -1,12 +1,15 @@
-import { ViajeService } from './../../services/viaje.service';
+import { Viaje } from './../lista-viajes/viaje';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { HelperService } from 'src/app/services/helper.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { ViajeService } from 'src/app/services/viaje.service';
+import { Router } from '@angular/router';
+import { HelperService } from 'src/app/services/helper.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
+import { Vehiculo } from '../listar-vehiculo/vehiculo';
+import { UserModel } from 'src/app/models/usuario';
+import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
   selector: 'app-viaje',
   templateUrl: './viaje.page.html',
@@ -14,58 +17,71 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class ViajePage implements OnInit {
 
-  p_ubicacion_origen: string = '';
-  p_ubicacion_destino: string = '';
-  p_costo: number = 0;
-  p_id_vehiculo: number = 0;
-  
-
-  constructor(
-    private router: Router,
-    private alertController: AlertController,
-    private firebase: FirebaseService, 
-    private viajeService: ViajeService,
-    private helper: HelperService,
+  constructor(private alertController: AlertController,
     private storage: StorageService,
-    private usuarioService: UsuarioService
-  ) { 
-    this.p_ubicacion_origen = '';
-    this.p_ubicacion_destino = '';
-    this.p_costo = 0;
-    this.p_id_vehiculo = 0;
+    private usuarioService: UsuarioService,
+    private viajeService: ViajeService,
+    private router: Router,
+    private helper: HelperService,
+    private vehiculoService: VehiculoService,
+    private firebase: FirebaseService
+  ) { }
+
+  ngOnInit() {
   }
 
-  ngOnInit() { }
+  nuevoViaje: Viaje = {
+    id_usuario: 0,           // Proporciona un valor válido
+    id_estado: 0,            // Proporciona un valor válido
+    nombre_proyecto: '',     // Proporciona un valor válido
+    patente: '',             // Proporciona un valor válido
+    costo: 0,
+    fecha: '',
+    ubicacion_origen: '',
+    ubicacion_destino: '',
+    id_vehiculo: 0,
+    marca: '',               // Proporciona un valor válido
+    modelo: '',              // Proporciona un valor válido
+    anio: 0,                 // Proporciona un valor válido
+    color: ''                // Proporciona un valor válido
+};
 
-  async agregarViaje() {
-    try {
+  vehiculos: Vehiculo[] = []; // Aquí almacenaremos los vehículos del usuario
+  vehiculoSeleccionado: number = 0; // ID del vehículo seleccionado
+  idVehiculo: number =0;
+
+  token: string=" ";
+  usuario:UserModel[]=[];
+
+
+  async agregarViaje(){
       // Obtener el token almacenado
-      const tokenData = await this.storage.obtenerStorage();
-      console.log("TokenData", tokenData);
-
-      // Obtener la información del usuario
-      const usuarioInfo = await this.usuarioService.obtenerUsuario({
-        p_correo: tokenData[0].usuario_correo,
-        token: tokenData[0].token
-      });
-
-      // Preparar la solicitud para agregar el viaje
-      const req = await this.viajeService.agregarViaje({
-        'p_id_usuario': tokenData[0].usuario_id,
-        'p_ubicacion_origen': this.p_ubicacion_origen.toString(),
-        'p_ubicacion_destino': this.p_ubicacion_destino.toString(),
-        'p_costo': this.p_costo,
-        'p_id_vehiculo': this.p_id_vehiculo,
-        'token': tokenData[0].token
-      });
-
-      // Mostrar alerta y navegar
-      await this.helper.showAlert("Viaje agregado correctamente", "");
-      await this.router.navigateByUrl('inicio');
-
+      let tokenData = await this.storage.obtenerStorage();
+      console.log("TokenDataaa", tokenData);
+      const token = tokenData[0].token
+      try {
+        if(token){
+          if(tokenData[0].id_vehiculo == null){
+            await this.helper.showAlert("Debe agregar un vehiculo","");
+          }else{const req = await this.viajeService.agregarViaje({
+            p_id_usuario: tokenData[0].id_usuario,
+            p_id_vehiculo: tokenData[0].id_vehiculo, 
+            p_costo: this.nuevoViaje.costo,
+            p_ubicacion_origen: this.nuevoViaje.ubicacion_origen,
+            p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
+            token: token,
+          });
+          //await this.helper.showAlert("Viaje agregado Correctamente","");
+          await this.helper.showToast('Viaje Agregado! :)')
+          await this.router.navigateByUrl('/inicio');}
+          
+        }
     } catch (error) {
-      console.error('Error al agregar el viaje:', error);
+      console.error('Error al obtener la informacion',error)
     }
-  }
-}
 
+
+  }
+
+
+}
