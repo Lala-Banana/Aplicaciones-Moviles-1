@@ -7,6 +7,8 @@ import { HelperService } from 'src/app/services/helper.service';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { UserModel } from 'src/app/models/usuario';
+import { ModalController } from '@ionic/angular';
+
 @Component({
   selector: 'app-lista-viajes',
   templateUrl: './lista-viajes.page.html',
@@ -17,6 +19,18 @@ export class ListaViajesPage implements OnInit {
   viajes: Viaje[] = [];
   public nuevoViaje: string = '';
   usuarioId: number=0;
+  estados = [
+    { id: 1, nombre: 'Pendiente' },
+    { id: 2, nombre: 'En curso' },
+    { id: 3, nombre: 'Completado' },
+  ];
+  viajeSeleccionado : number | null = 0;
+  nuevoEstado : number | null = null;
+
+
+
+
+  
   constructor(
     private router: Router,
     private viajeService: ViajeService,
@@ -111,6 +125,51 @@ export class ListaViajesPage implements OnInit {
     await alert.present();
   }
 
+  
+/*  */
+
+onViajeChange() {
+  console.log(' nuevoEstado', this.nuevoEstado);
+}
+
+// Método para cerrar el moda
+
+// Método para actualizar el estado del viaje
+async actualizarEstado() {
+  try {
+    
+
+    let dataStorage = await this.storage.obtenerStorage();
+    if(this.nuevoEstado !== null && (this.viajeSeleccionado !== null)){
+      if(typeof this.nuevoEstado === 'number' && (typeof this.viajeSeleccionado !== 'number')){
+      this.helperService.showAlert('Estado actualizado', '');
+      console.log('this.nuevoEstado',this.nuevoEstado, 'this.viajeSeleccionado.id',this.viajeSeleccionado);
+      console.log('dataStorage[0].token',dataStorage[0].token);
+       await this.viajeService.actualizarEstadoViaje({
+        id_estado: this.nuevoEstado,
+        id_viaje: this.viajeSeleccionado,
+        token: dataStorage[0].token, // Aquí incluye tu token de autenticación
+      }); 
+      }else{
+        console.log('Tipo de dato no corresponde');
+      }
+    
+
+    } else {
+      console.log('Uno de estos valores es null: this.nuevoEstado | this.viajeSeleccionado');
+    }
+    
+  } catch (error) {
+    console.error('Error al actualizar el estado del viaje', error);
+  }
+
+  }
+
+
+  obtenerEstadoTexto(idEstado: number): string {
+    const estado = this.estados.find(e => e.id === idEstado);
+    return estado ? estado.nombre : 'Desconocido';
+  }
 
 
 

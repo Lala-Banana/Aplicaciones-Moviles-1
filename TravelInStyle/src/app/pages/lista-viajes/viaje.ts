@@ -1,4 +1,5 @@
 export interface Viaje {
+  id_viaje:number;
   id_usuario: number;
   id_vehiculo: number;
   id_estado: number;

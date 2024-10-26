@@ -33,6 +33,7 @@ export class ViajePage implements OnInit {
   }
   usuarioId: number=0;
   nuevoViaje: Viaje = {
+    id_viaje: 0,
     id_usuario: 0,           // Proporciona un valor válido
     id_estado: 0,            // Proporciona un valor válido
     nombre_proyecto: '',     // Proporciona un valor válido
