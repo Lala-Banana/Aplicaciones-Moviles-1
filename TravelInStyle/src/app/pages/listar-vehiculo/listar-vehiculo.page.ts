@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Vehiculo } from './vehiculo';
 import { Router } from '@angular/router';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
@@ -18,7 +19,8 @@ export class ListarVehiculoPage implements OnInit {
   constructor(private router: Router,
     private vehiculoService: VehiculoService,
     private storage: StorageService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private alertController: AlertController 
   ) { }
 
   ngOnInit() {
@@ -59,5 +61,39 @@ export class ListarVehiculoPage implements OnInit {
         // Cargar los vehículos después de obtener el usuario
         this.cargarVehiculos();
     }
+  }
+
+
+
+
+
+
+  // Navegacion
+  goToPage(page: string) {
+    this.router.navigate([`/${page}`]);
+  }
+
+  // Cierre de sesion
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Está seguro de cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cierre de sesión cancelado');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            console.log('Cerrando sesión...');
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
   }
 }

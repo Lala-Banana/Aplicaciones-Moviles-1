@@ -29,6 +29,17 @@
     <ion-input [(ngModel)]="nuevoViaje.ubicacion_destino" placeholder="Introduce la ubicación de destino"></ion-input>
   </ion-item>
 
+<ion-item>
+  <ion-label>Selecciona un Vehículo</ion-label>
+  <ion-select [(ngModel)]="vehiculoSeleccionado"(ionChange)="onVehiculoChange()" >
+    
+    <ion-select-option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.id">
+      {{ vehiculo.marca }} - {{ vehiculo.modelo }} - {{ vehiculo.patente }}
+    </ion-select-option>
+
+  </ion-select>
+</ion-item>
+  
 
   <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
 

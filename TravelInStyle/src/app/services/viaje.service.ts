@@ -28,33 +28,30 @@ export class ViajeService {
 
 
   async agregarViaje(datoViaje:dataBodyViaje){
-    try{
-    const formData = new FormData();
-
-    formData.append('p_id_usuario',datoViaje.p_id_usuario?.toString());
-    formData.append('p_ubicacion_origen',datoViaje.p_ubicacion_origen);
-    formData.append('p_ubicacion_destino',datoViaje.p_ubicacion_destino);
-    formData.append('p_costo',datoViaje.toString());  
-    formData.append('p_id_vehiculo',datoViaje.p_id_vehiculo.toString());
-    if(datoViaje.token){
-      formData.append('token',datoViaje.token);
-    }
-    /* formData.append('image', imgFileUser.file, imgFileUser.name); */
-
-    const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/agregar',formData));
-    return response;
-  }catch(error){
-    throw error;
+    try {
+      const body = {
+        p_id_usuario:datoViaje.p_id_usuario,
+        p_ubicacion_origen:datoViaje.p_ubicacion_origen,
+        p_ubicacion_destino:datoViaje.p_ubicacion_destino,
+        p_costo:datoViaje.p_costo,
+        p_id_vehiculo:datoViaje.p_id_vehiculo,
+        token:datoViaje.token
+      }
+      const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/agregar',body));
+      return response;
+      
+    } catch (error) {
+      throw error;
     }
   }
 
   
 }
 interface dataBodyViaje{
-  p_id_usuario:number;
-  p_ubicacion_origen:string;
+  p_id_usuario :number;
+  p_ubicacion_origen :string;
   p_ubicacion_destino:string;
-  p_costo:number;
+  p_costo : number;
   p_id_vehiculo:number;
   token:string;
 }

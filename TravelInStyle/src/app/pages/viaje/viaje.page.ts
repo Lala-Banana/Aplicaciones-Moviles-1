@@ -28,8 +28,10 @@ export class ViajePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+     this.cargarVehiculos(); 
   }
-
+  usuarioId: number=0;
   nuevoViaje: Viaje = {
     id_usuario: 0,           // Proporciona un valor válido
     id_estado: 0,            // Proporciona un valor válido
@@ -47,41 +49,109 @@ export class ViajePage implements OnInit {
 };
 
   vehiculos: Vehiculo[] = []; // Aquí almacenaremos los vehículos del usuario
-  vehiculoSeleccionado: number = 0; // ID del vehículo seleccionado
+  
   idVehiculo: number =0;
 
   token: string=" ";
   usuario:UserModel[]=[];
+  vehiculoSeleccionado: number | null = null;
 
 
+  onVehiculoChange() {
+    console.log('Vehículo seleccionado:', this.vehiculoSeleccionado);
+  }
   async agregarViaje(){
+    console.log("this.vehiculoSeleccionado antes del primer if", this.vehiculoSeleccionado);
+    if (this.vehiculoSeleccionado !== null){
       // Obtener el token almacenado
+      console.log("this.vehiculoSeleccionado antes de TRY", this.vehiculoSeleccionado);
       let tokenData = await this.storage.obtenerStorage();
       console.log("TokenDataaa", tokenData);
       const token = tokenData[0].token
       try {
         if(token){
-          if(tokenData[0].id_vehiculo == null){
+          console.log("TokenDataaa", tokenData);
+          
+          console.log("this.vehiculoSeleccionado antes del showalert", this.vehiculoSeleccionado);
+          if(this.vehiculoSeleccionado == null){
             await this.helper.showAlert("Debe agregar un vehiculo","");
-          }else{const req = await this.viajeService.agregarViaje({
-            p_id_usuario: tokenData[0].id_usuario,
-            p_id_vehiculo: tokenData[0].id_vehiculo, 
-            p_costo: this.nuevoViaje.costo,
-            p_ubicacion_origen: this.nuevoViaje.ubicacion_origen,
-            p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
-            token: token,
-          });
-          //await this.helper.showAlert("Viaje agregado Correctamente","");
-          await this.helper.showToast('Viaje Agregado! :)')
-          await this.router.navigateByUrl('/inicio');}
+          }else{
+            console.log('tokenData.data[0].id_usuario',this.usuarioId,
+              'this.vehiculoSeleccionado',this.vehiculoSeleccionado,
+            '');
+            try{
+            
+            const req = await this.viajeService.agregarViaje({
+              p_id_usuario: this.usuarioId,
+              p_id_vehiculo: this.vehiculoSeleccionado, 
+              p_costo: this.nuevoViaje.costo,
+              p_ubicacion_origen: this.nuevoViaje.ubicacion_origen,
+              p_ubicacion_destino: this.nuevoViaje.ubicacion_destino,
+              token: token,
+            });
+
+            await this.helper.showToast('Viaje Agregado! :)')
+            await this.router.navigateByUrl('/lista-viajes');
+            } catch(error){
+              console.error('Error al ejecutar: this.viajeService.agregarViaje',error)
+              this.helper.showAlert("No se pudo agregar el viaje", "Llame a diosito");
+            }
+            //await this.helper.showAlert("Viaje agregado Correctamente","");
+            
+            }
           
         }
-    } catch (error) {
+      } catch (error) {
       console.error('Error al obtener la informacion',error)
+      }
+    } else{
+      this.helper.showAlert("Debe agregar un vehiculo","");
+
     }
 
-
   }
+  
+  async cargarUsuario() {
+    try {
+        let dataStorage = await this.storage.obtenerStorage();
+        console.log('dataStorage', dataStorage);
+        const req = await this.usuarioService.obtenerUsuario({
+            p_correo: dataStorage[0].usuario_correo,
+            token: dataStorage[0].token
+        });
+        this.usuario = req.data;
+        console.log("DATA INICIO USUARIO ", this.usuario);
+        
+        if (this.usuario.length > 0) {
+            this.usuarioId = this.usuario[0].id_usuario; // Asignar el ID del usuario actual
+            console.log("ID del usuario actual: ", this.usuarioId);
+            
+            // Cargar los vehículos y esperar a que se complete
+             // Usar await aquí
+        }
+    } catch (error) {
+        console.error('Error al cargar el usuario', error);
+        // Puedes mostrar un mensaje de error al usuario si lo deseas
+    }
+}
+
+async cargarVehiculos() {
+    try {
+        await this.cargarUsuario();
+        let dataStorage = await this.storage.obtenerStorage();
+        const req = await this.vehiculoService.obtenerVehiculo(dataStorage[0].token);
+        // Filtrar vehículos por el ID del usuario actual
+        console.log('req', req);
+        console.log('this.usuarioId', this.usuarioId);
+
+        this.vehiculos = req.data.filter((vehiculo: Vehiculo) => vehiculo.id_usuario === this.usuarioId);
+    } catch (error) {
+        console.error('Error al cargar vehículos', error);
+        // Manejo de errores específico para cargar vehículos
+    }
+}
+
+
 
 
 }

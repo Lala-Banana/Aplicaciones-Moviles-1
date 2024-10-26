@@ -46,7 +46,8 @@ export class AgregarVehiculoPage implements OnInit {
     //capacidadPasajeros: 0,
     //idUsuario: 0,
     imagen_vehiculo: '',
-    id_usuario :0
+    id_usuario :0,
+    id:0,
   };
   
   async agregarVehiculo(){

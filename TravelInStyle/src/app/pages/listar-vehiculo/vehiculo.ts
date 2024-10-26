@@ -7,4 +7,5 @@ export interface Vehiculo {
     combustible: String;
     imagen_vehiculo: String;
     id_usuario:number;
+    id:number;
 }
