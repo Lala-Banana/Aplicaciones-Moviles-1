@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
 
       loader.dismiss();
       
-      
+      await this.helper.showToast('Inicio de sesion correcto! :)')
       this.router.navigateByUrl('/inicio/'+this.correo);
     
     } catch (error:any) {
