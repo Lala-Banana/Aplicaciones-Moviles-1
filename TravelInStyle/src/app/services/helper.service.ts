@@ -47,4 +47,29 @@ export class HelperService {
     await toast.present();
    }
 
+   async showConfirm(msg:string){
+    let promise = new Promise<boolean>(async (resolve, reject)=>{
+      var alert = await this.alertService.create(
+        {
+          message:msg,
+          header:"Advertencia",
+          buttons:[
+            {
+              text:"Aceptar",
+              handler: ()=>{
+                resolve(true)
+              }
+            },
+            {
+              text:"Cancelar",
+              handler: ()=>{
+                resolve(false)
+              }
+            }
+          ]
+        });
+      await alert.present();
+    });
+    return promise;
+  }
 }

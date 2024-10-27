@@ -6,6 +6,8 @@ import { ViewChild, ElementRef } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Network } from '@capacitor/network';
+import { HelperService } from 'src/app/services/helper.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-inicio',
@@ -28,7 +30,9 @@ export class InicioPage implements OnInit,
     private alertController: AlertController,
     private animationCtrl: AnimationController,
     private storage: StorageService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private helper: HelperService,
+    private firebase: FirebaseService
   ) { }
 
   async ngOnInit() {
@@ -108,29 +112,13 @@ export class InicioPage implements OnInit,
 
   // Cierre de sesion
   async logout() {
-    const alert = await this.alertController.create({
-      header: 'Confirmación',
-      message: '¿Está seguro de cerrar sesión?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cierre de sesión cancelado');
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: () => {
-            console.log('Cerrando sesión...');
-            this.router.navigate(['/login']);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+    const confirmar = await this.helper.showConfirm("¿Está seguro de cerrar sesión?");
+    if(confirmar){
+      this.firebase.logout();
+      this.router.navigateByUrl('/login');
+    }
   }
+
 
   play() {
     if (this.animation) {
