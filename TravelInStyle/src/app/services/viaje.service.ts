@@ -49,8 +49,8 @@ export class ViajeService {
   async actualizarEstadoViaje(datoEstado:dataBodyViajeEstado) {
     try {
       const body = {
-        id_estado: datoEstado.id_estado, 
-        id_viaje: datoEstado.id_viaje,              
+        p_id_estado : datoEstado.p_id_estado , 
+        p_id : datoEstado.p_id ,              
         token: datoEstado.token          
       };
   
@@ -83,7 +83,7 @@ interface dataBodyViaje{
 }
 
 interface dataBodyViajeEstado{
-  id_estado: number; 
-  id_viaje: number;             
+  p_id_estado : number; 
+  p_id : number;             
   token: string; 
 }
