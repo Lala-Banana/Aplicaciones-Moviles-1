@@ -13,8 +13,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  correo: string = "lala@banana1600.cl";
-  contrasena: string = 'mhdlbele2001';
+  correo: string = "";
+  contrasena: string = '';
   token: string=" ";
   usuario:UserModel[]=[];
 
