@@ -61,6 +61,9 @@
     <ion-list>
       <ion-item *ngFor="let vehiculo of vehiculos">
         <ion-label>
+          <div class="box">
+            <ion-img [src]="vehiculo.imagen_vehiculo" ></ion-img>
+          </div>
           <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
           <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
           <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
