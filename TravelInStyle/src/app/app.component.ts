@@ -1,19 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private menu: MenuController, 
+    private router: Router,
+     private alertController: AlertController,
+     private firebase:FirebaseService) {}
 
-  goToPage(page: string) {
+   // Navegacion
+   goToPage(page: string) {
     this.router.navigate([`/${page}`]);
   }
 
-  // Método para cerrar sesión con confirmación
+  // Cierre de sesion
   async logout() {
     const alert = await this.alertController.create({
       header: 'Confirmación',
@@ -29,9 +36,10 @@ export class AppComponent {
         {
           text: 'Confirmar',
           handler: () => {
-            // Aquí va la lógica de cerrar sesión
             console.log('Cerrando sesión...');
-            this.router.navigate(['/login']);  // Redirige al login después de cerrar sesión
+            this.menu.close();
+            this.firebase.logout();
+            this.router.navigate(['/login']);
           }
         }
       ]
@@ -39,4 +47,5 @@ export class AppComponent {
 
     await alert.present();
   }
+
 }

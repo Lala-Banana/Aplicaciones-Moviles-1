@@ -137,17 +137,19 @@ onViajeChange() {
 // Método para actualizar el estado del viaje
 async actualizarEstado() {
   try {
-    
+    this.nuevoEstado = Number(this.nuevoEstado);
 
+    console.log('Tipo de dato de this.nuevoEstado:', typeof this.nuevoEstado,this.nuevoEstado );
+    console.log('Tipo de dato de this.viajeSeleccionado:', typeof this.viajeSeleccionado);
     let dataStorage = await this.storage.obtenerStorage();
     if(this.nuevoEstado !== null && (this.viajeSeleccionado !== null)){
-      if(typeof this.nuevoEstado === 'number' && (typeof this.viajeSeleccionado !== 'number')){
+      if(typeof this.nuevoEstado === 'number' && (typeof this.viajeSeleccionado === 'number')){
       this.helperService.showAlert('Estado actualizado', '');
       console.log('this.nuevoEstado',this.nuevoEstado, 'this.viajeSeleccionado.id',this.viajeSeleccionado);
       console.log('dataStorage[0].token',dataStorage[0].token);
        await this.viajeService.actualizarEstadoViaje({
-        id_estado: this.nuevoEstado,
-        id_viaje: this.viajeSeleccionado,
+        p_id_estado: this.nuevoEstado,
+        p_id : this.viajeSeleccionado,
         token: dataStorage[0].token, // Aquí incluye tu token de autenticación
       }); 
       }else{
