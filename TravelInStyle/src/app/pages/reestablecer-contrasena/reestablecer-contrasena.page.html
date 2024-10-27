@@ -19,7 +19,7 @@
     
   </ion-header>
   <h1 class="ion-text-center">¿Olvidaste tu contraseña?</h1>
-  <ion-input type="email" label="Ingrese su correo" label-placement="floating" fill="outline" placeholder="ej: abc123@gmail.com"></ion-input>
-  <ion-button fill="outline">Enviar código</ion-button>
+  <ion-input type="email" [(ngModel)]="correo" label="Ingrese su correo" label-placement="floating" fill="outline" placeholder="ej: abc123@gmail.com"></ion-input>
+  <ion-button fill="outline" (click)="registro()">Enviar código</ion-button>
 
 </ion-content>
