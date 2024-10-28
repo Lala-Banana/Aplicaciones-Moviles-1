@@ -56,7 +56,7 @@ export class ListaViajesPage implements OnInit {
       const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
       console.log('storage y obtenerViaje Funcionan',req);
       
-      this.viajes = req.data.filter((viaje: Viaje) => viaje.id_usuario === this.usuarioId);
+      this.viajes = req.data //.filter((viaje: Viaje) => viaje.id_usuario === this.usuarioId);
       console.log(this.viajes);
       if (!this.viajes || this.viajes.length == 0){
         this.helperService.showAlert('No presenta viajes', 'Estado:');
