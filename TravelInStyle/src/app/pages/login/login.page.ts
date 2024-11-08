@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
    ) { } 
 
   ngOnInit() {
+    this.logout();
   }
 
   async login(){
@@ -106,5 +107,9 @@ export class LoginPage implements OnInit {
   registrarNuevoUsuario(){
     this.router.navigateByUrl('/registro-usuario');
 
+  }
+
+  async logout() {
+    this.firebase.logout();
   }
 }
