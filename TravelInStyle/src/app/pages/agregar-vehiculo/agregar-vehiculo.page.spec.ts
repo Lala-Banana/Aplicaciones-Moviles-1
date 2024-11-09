@@ -1,3 +1,5 @@
+import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AgregarVehiculoPage } from './agregar-vehiculo.page';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -12,9 +14,10 @@ describe('AgregarVehiculoPage', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
+      declarations: [AgregarVehiculoPage],
       providers:[provideHttpClient()],
-      imports:[AngularFireAuthModule,AngularFireModule.initializeApp(environment.firebaseConfig)]
-    })
+      imports:[FormsModule,IonicModule.forRoot(),AngularFireAuthModule,AngularFireModule.initializeApp(environment.firebaseConfig)]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AgregarVehiculoPage);
     component = fixture.componentInstance;
