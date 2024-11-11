@@ -112,4 +112,12 @@ export class LoginPage implements OnInit {
   async logout() {
     this.firebase.logout();
   }
+
+
+  validarFormatoCorreo(): boolean {
+    // Expresión regular para validar el formato de correo
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexCorreo.test(this.correo);
+  }
+
 }

@@ -20,4 +20,12 @@ describe('PerfilPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('verifica que la foto de perfil esté cargada', () => {
+    component.imagen = 'https://ejemplo.com/foto-perfil.png';
+  
+    expect(component.imagen).toBeTruthy();
+    expect(component.imagen.length).toBeGreaterThan(0);
+  });
+
 });

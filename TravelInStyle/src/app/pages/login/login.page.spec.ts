@@ -24,4 +24,17 @@ describe('LoginPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('verifica campos login no esten vacios', () => {
+    component.correo = 'lala@lala.cl'
+    component.contrasena = '123456' 
+    expect(component.correo).toBeTruthy();
+    expect(component.contrasena).toBeTruthy();
+  });
+
+  it('valida formato correo', () => {
+    component.correo = 'test@example.com';
+    expect(component.validarFormatoCorreo()).toBeTrue();
+  });
+
 });
