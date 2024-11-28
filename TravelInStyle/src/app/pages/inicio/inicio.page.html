@@ -1,41 +1,27 @@
 <!--  Menu-->
-<ion-menu contentId="main-content">
- 
+<div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menú</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="goToPage('perfil')" fill="clear">
+          <ion-icon name="person"></ion-icon>
+        </ion-button>
+        <ion-button (click)="goToPage('listar-vehiculo')" fill="clear">
+          <ion-icon name="car"></ion-icon>
+        </ion-button>
+        <ion-button (click)="goToPage('lista-viajes')" fill="clear">
+          <ion-icon name="briefcase"></ion-icon>
+        </ion-button>
+        <ion-button (click)="logout()" fill="clear">
+          <ion-icon name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <!-- Botón para Perfil -->
-      <ion-item (click)="goToPage('perfil')">
-        <ion-icon name="person" slot="start"></ion-icon>
-        <ion-label>Perfil</ion-label>
-      </ion-item>
-
-      <!-- Botón para Vehiculo -->
-      <ion-item (click)="goToPage('listar-vehiculo')">
-        <ion-icon name="car" slot="start"></ion-icon>
-        <ion-label>Vehículos</ion-label>
-      </ion-item>
-
-      <!-- Botón para Viaje -->
-      <ion-item (click)="goToPage('lista-viajes')">
-        <ion-icon name="briefcase" slot="start"></ion-icon>
-        <ion-label>Viaje</ion-label>
-      </ion-item>
-
-      <!-- Botón para Cerrar Sesión -->
-      <ion-item (click)="logout()">
-        <ion-icon name="log-out" slot="start"></ion-icon>
-        <ion-label>Cerrar Sesión</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-<!-- FIN Menu -->
 
 <!-- Página inicio -->
 <div class="ion-page" id="main-content">
